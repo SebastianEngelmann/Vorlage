@@ -1,0 +1,142 @@
+\documentclass[%
+	paper=A4,				% paper size --> A4 is default in Germany
+	%twoside=true,				% onesite or twoside printing
+	openright,				% doublepage cleaning ends up right side
+	parskip=full,				% spacing value / method for paragraphs
+	chapterprefix=true,			% prefix for chapter marks
+	11pt,					% font size
+	headings=normal,			% size of headings
+	bibliography=totoc,			% include bib in toc
+	%listof=totoc, 				% include listof entries in toc
+	titlepage=on,				% own page for each title page
+	captions=tableabove,			% display table captions above the float env
+	draft=false,				% value for draft version
+]{scrartcl}%
+
+% Packages
+% -----------------------------------
+\usepackage[utf8]{inputenc}		
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage[style=authoryear, backend=biber]{biblatex}
+\usepackage{csquotes}
+\bibliography{./Literatur/quellen.bib}					
+\usepackage{mdwlist}
+\usepackage{placeins}
+\usepackage{graphicx} 				% Grafiken einfügen (pdf,png - aber jpg vermeiden)
+\graphicspath{{./Bilder/}}              	% Pfad zu den Bildern
+\usepackage{url}				% URL's formatieren (z.B. in Literatur) 
+\usepackage{tabularx} 				% bessere Gestaltung von Tabellen
+\usepackage{longtable, lscape} 				 
+\usepackage[active]{srcltx}
+\usepackage{listings}
+\usepackage{setspace} 				% Zeileneinstellung
+\newtheorem{mydef}{Merksatz}  			% Falls Beispiele, Merksätze m. fortl. Nr. gebr. werden
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+%\usepackage{amsfonts}
+\usepackage{pdfpages}
+\newtheorem{bsp}{Beispiel}
+%\usepackage{indentfirst}
+\rmfamily 					% Serifenschrift
+%\usepackage{unicode-math}
+%\usepackage{libertine}
+%\setmathfont{Asana Math}
+\usepackage{mathrsfs}
+\usepackage[nooneline]{caption}
+\usepackage{float}
+\usepackage{fancyvrb}
+\usepackage{ragged2e}
+%\usepackage{multirow}
+\numberwithin{equation}{section}
+% Literatur in Literaturverzeichnis umbenennen
+\addto\captionsngerman{\renewcommand{\refname}{Literaturverzeichnis}}
+
+\definecolor{mygray}{gray}{.4}
+\definecolor{light-gray}{gray}{0.95}
+
+\lstdefinelanguage{Renhanced}[]{R}{%
+  morekeywords={lapply, mapply, is.logical, is.numeric, seq_len, seq_along},
+  deletekeywords={c, seq},
+  alsoletter={.\%},%
+  alsoother={:_\$}}
+  
+\lstset{language = Renhanced,
+	basicstyle = \ttfamily\color{black}, %usepackage courier muss geladen werden
+	stringstyle = \color{mygray},
+    commentstyle = \color{mygray}\textit,
+    keywordstyle = \bfseries,
+	numbers=left,
+	numbersep=5pt,
+	numberstyle = \footnotesize,
+    breaklines=true,
+    backgroundcolor=\color{light-gray},
+    keepspaces = true,
+    flexiblecolumns = true,
+    showtabs = false,    
+    showstringspaces=false
+    }
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%  Definitionen  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{bemerkung}[theorem]{Bemerkung}
+\newtheorem*{definition}{Definition}
+\newtheorem{notation}[theorem]{Notation}
+\newtheorem{korollar}[theorem]{Korollar}
+\newtheorem{proposition}[theorem]{Proposition}
+
+\def\Q{\mathbb{Q}}
+\def\F{\mathbb{F}}
+\def\Z{\mathbb{Z}}
+\def\N{\mathbb{N}}
+\def\R{\mathbb{R}}
+
+\setlength{\parindent}{1.5em} % z. B. 0pt für den Einzug
+\setlength{\parskip}{1.5em}  % z. B. 0pt
+
+
+\usepackage{hyperref} 				% für Hyperlinks in PDF-Dokumenten     
+
+% Document
+% -----------------------------------
+\begin{document}
+%\frontmatter 
+\pagenumbering{Roman}
+    \include{./Titel/titel} 			% Titelblatt
+    \include{./Kapitel/abstract_deu} 		% Abstract auf Deutsch 
+    %\include{./Kapitel/abstract_eng} 		% Abstract in English
+    \onehalfspacing                  		% Zeilenabstand ab hier 1.5 zeilig
+    \tableofcontents 				% Inhaltsverzeichnis
+    \newpage
+    \listoffigures 			 	% Abbildungsverzeichnis
+    \newpage
+    \listoftables				% Tabellenverzeichnis
+    \newpage
+% -----------------------------------
+%\mainmatter 		
+%\pagenumbering{arabic}				% die einzelnen Kapitel
+    \input{./Kapitel/kapitel1}
+    \input{./Kapitel/kapitel2}
+    \input{./Kapitel/kapitel3}
+    \input{./Kapitel/kapitel4}
+    \input{./Kapitel/kapitel5}
+
+% -----------------------------------
+%\backmatter 
+\begin{appendix}
+%\input{./Anhang/} 				% Pfad & Datei einfuegen => ./Anhang/*.tex 
+\end{appendix}
+\RaggedRight
+\clearpage
+\begingroup
+%\RaggedRight 
+\printbibliography				% Literaturquellen einbinden
+\endgroup
+\input{./Kapitel/erklaerung} 			% Eidesstattliche Erklärung (nicht bei Seminararb.)
+
+\end{document}
